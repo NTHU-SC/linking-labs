@@ -320,6 +320,7 @@ public:
     while (y != TNULL && x == y->right) {
       x = y;
       y = y->parent;
+
     }
     return y;
   }
@@ -431,7 +432,7 @@ public:
   NodePtr getRoot() { return this->root; }
 
   // delete the node from the tree
-  void deleteNode(int data) { deleteNodeHelper(this->root, data); }
+  void erase(int data) { deleteNodeHelper(this->root, data); }
 
   // print the tree structure on the screen
   void prettyPrint() {
@@ -441,20 +442,21 @@ public:
   }
 };
 
-#define magic 8071097
-#define map(x) ((x * 3) % magic)
 
 int main() {
+#define magic 8071097
+#define bf(x) ((x * 3) % magic)
   srand(magic);
   RBTree tree;
+
   for (int i = 0; i < magic; i++)
     tree.insert(i);
 
   for (int i = 0; i < magic; i++) {
     if (rand() % 2) {
-      tree.insert(map(i));
+      tree.insert(bf(i));
     } else {
-      tree.deleteNode(map(i));
+      tree.erase(bf(i));
     }
   }
   return 0;
